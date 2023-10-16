@@ -32,4 +32,20 @@
             - modifico il flex basis di "cell"
 
 # Logica Campo fiorito
-- 
+- Generare 16 bombe
+    - dichiaro una funzione che generi numeri random da 1 ad un argomento range-max
+    - Dichiaro una funzione contenente un'array vuoto che dovrà essere riempito successivamente
+    - inizializzo un ciclo while che mi genera 16 
+    numeri random in base al range di celle
+    - invoco la funzione che genera i numeri random
+    - mi accerto che i numeri generati non siano uguali
+        - SE i numeri generati sono uguali ad almeno un numero all'interno dell'array il ciclo continua senza leggere il codice
+        - ALTRIMENTI il numero generato viene pushato nell'array
+- Al click dell'utente su una cella determinare se ha trovato una bomba o no
+    - SE l'utente trova una bomba
+        - coloro la cella di rosso
+        - la pagina avvisa l'utente del game over
+    - ATRIMENTI il gioco prosegue
+        - viene incrementato il punteggio
+        - coloro le celle di azzuro
+        - verifico se il giocatore ha finito il gioco
