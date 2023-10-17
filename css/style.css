@@ -41,6 +41,14 @@
     flex-basis: calc(100% / 7);
 }
 
-.bg-color {
+.bg-blue {
     background-color: lightskyblue;
+}
+
+.bg-red {
+    background-color: red;
+}
+
+.pointer-none {
+    pointer-events: none;
 }

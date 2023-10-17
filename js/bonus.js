@@ -3,6 +3,8 @@ const playBtnDOMElement = document.getElementById('play-btn');
 const selectModeDOMElement = document.getElementById('mode-select');
 // console.log(selectModeDOMElement);
 
+const gridDOMElement = document.querySelector('.grid');
+
 const counterDOMElement = document.querySelector('.counter');
 // let counter = 0
 
@@ -19,30 +21,47 @@ playBtnDOMElement.addEventListener('click', function() {
     const randomArray = getArrayRandomFromARange(1, 100, 16)
     console.log(randomArray)
 
-    const randomInt = getRandomInt(1,100)
-    console.log(randomInt)
-    
-
     const cellsDOMElements = document.querySelectorAll('.cell');
     // console.log(cellsDOMElements);
+
+    
 
     for (let i = 0; i < cellsDOMElements.length; i++ ) {
 
         const selectedCell = cellsDOMElements[i];
         // console.log(i, selectedCell);
+        const cellNumber = (i + 1);
+        console.log(cellNumber);
 
         selectedCell.addEventListener('click', function() {
 
             // counter++
             // const counterHTML = `<span>${counter}</span>`
             // counterDOMElement.innerHTML = counterHTML
-            selectedCell.classList.add('bg-color');
+            selectedCell.classList.add('bg-blue');
+
+            // - Al click dell'utente su una cella determinare se ha trovato una bomba o no
+            //     - SE l'utente trova una bomba
+            if (randomArray.includes(cellNumber)) {
+                //         - coloro la cella di rosso
+                selectedCell.classList.add("bg-red");
+                //         - la pagina avvisa l'utente del game over
+                alert("Game over");
+                //         - tolgo interattività alla griglia
+                gridDOMElement.classList.add("pointer-none")
+            } 
+            
+            //     - ATRIMENTI il gioco prosegue
+            //         - viene incrementato il punteggio
+            //         - coloro le celle di azzuro
+            //         - verifico se il giocatore ha finito il gioco
+            
         })
     }
 })
 
 function gridGen(cellsNumb, difficultyClass) {
-    const gridDOMElement = document.querySelector('.grid');
+    
 
     gridDOMElement.innerHTML = '';
 
@@ -73,20 +92,16 @@ function getArrayRandomFromARange(minRange, maxRange, number){
     //  numeri random in base al range di celle
     while (bombsArray.length < number) {
         //     - invoco la funzione che genera i numeri random
-        const generatedNumber = getRandomInt(minRange, maxRange)
+        const generatedNumber = getRandomInt(minRange, maxRange);
         //     - mi accerto che i numeri generati non siano uguali
-        //         - SE i numeri generati sono uguali ad almeno un numero all'interno dell'array il ciclo continua senza leggere il codice
-        //         - ALTRIMENTI il numero generato viene pushato nell'array
-        bombsArray.push(generatedNumber)
+        //         - SE il numero generato è diverso da un numero già nell'array, pusho
+        console.log(generatedNumber)
+        if (!bombsArray.includes(generatedNumber)) {
+            
+            bombsArray.push(generatedNumber);
+        }
+        //         - ALTRIMENTI il numero non viene pushato
     }
     return bombsArray
 }
 
-// - Al click dell'utente su una cella determinare se ha trovato una bomba o no
-//     - SE l'utente trova una bomba
-//         - coloro la cella di rosso
-//         - la pagina avvisa l'utente del game over
-//     - ATRIMENTI il gioco prosegue
-//         - viene incrementato il punteggio
-//         - coloro le celle di azzuro
-//         - verifico se il giocatore ha finito il gioco
