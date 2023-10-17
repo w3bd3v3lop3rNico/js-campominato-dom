@@ -6,19 +6,24 @@ const selectModeDOMElement = document.getElementById('mode-select');
 const gridDOMElement = document.querySelector('.grid');
 
 const counterDOMElement = document.querySelector('.counter');
-// let counter = 0
+let counter = 0
 
 playBtnDOMElement.addEventListener('click', function() {
-    // counter = 0
+    counter = 0
+    const counterHTML = `<span>${counter}</span>`
+    counterDOMElement.innerHTML = counterHTML
+    let randomArray
     
     if (selectModeDOMElement.value === '1') {
-        gridGen(100, "cell normal-grid")
+        gridGen(100, "cell normal-grid");
+        randomArray = getArrayRandomFromARange(1, 100, 16);
     } else if (selectModeDOMElement.value === '2') {
         gridGen(81, "cell medium-grid")
+        randomArray = getArrayRandomFromARange(1, 81, 16);
     } else if (selectModeDOMElement.value === '3') {
         gridGen(49, "cell hard-grid")
+        randomArray = getArrayRandomFromARange(1, 49, 16);
     }
-    const randomArray = getArrayRandomFromARange(1, 100, 16)
     console.log(randomArray)
 
     const cellsDOMElements = document.querySelectorAll('.cell');
@@ -35,10 +40,10 @@ playBtnDOMElement.addEventListener('click', function() {
 
         selectedCell.addEventListener('click', function() {
 
-            // counter++
-            // const counterHTML = `<span>${counter}</span>`
+            
+            
             // counterDOMElement.innerHTML = counterHTML
-            selectedCell.classList.add('bg-blue');
+            
 
             // - Al click dell'utente su una cella determinare se ha trovato una bomba o no
             //     - SE l'utente trova una bomba
@@ -48,14 +53,18 @@ playBtnDOMElement.addEventListener('click', function() {
                 //         - la pagina avvisa l'utente del game over
                 alert("Game over");
                 //         - tolgo interattività alla griglia
-                gridDOMElement.classList.add("pointer-none")
-            } 
-            
-            //     - ATRIMENTI il gioco prosegue
-            //         - viene incrementato il punteggio
-            //         - coloro le celle di azzuro
-            //         - verifico se il giocatore ha finito il gioco
-            
+                gridDOMElement.classList.add("pointer-none");
+                //     - ATRIMENTI il gioco prosegue
+            } else {
+                //         - coloro le celle di azzuro
+                selectedCell.classList.add('bg-blue');
+
+                //         - viene incrementato il punteggio
+                counterIncrement(counter)
+                console.log(counterIncrement(counter))
+                //         - verifico se il giocatore ha finito il gioco
+
+            }
         })
     }
 })
@@ -104,4 +113,9 @@ function getArrayRandomFromARange(minRange, maxRange, number){
     }
     return bombsArray
 }
+// function counterIncrement(actualCounter) {
+
+//     return  actualCounter +=
+// }
+
 
